@@ -1,30 +1,26 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:day16_shopping/main.dart';
+import 'package:day16_shopping/main.dart'; // Ensure this points to the main.dart file
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+  testWidgets('HomePage widget test', (WidgetTester tester) async {
+    // Build the app and trigger a frame with the HomePage widget
+    await tester.pumpWidget(MaterialApp(
+      home: HomePage(), // Use HomePage directly here
+    ));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Verify that the "Get Start" button exists
+    expect(find.text("Get Start"), findsOneWidget);
+    
+    // Tap the 'Get Start' button
+    await tester.tap(find.text('Get Start'));
+    
+    // Wait for animations to complete
+    await tester.pumpAndSettle(); // This will ensure all animations are complete
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Verify that after tapping, the animation happens (you could verify by checking if some text or widget exists)
+    // For simplicity, checking if the "Create Account" button exists.
+    expect(find.text("Create Account"), findsOneWidget);
   });
 }
